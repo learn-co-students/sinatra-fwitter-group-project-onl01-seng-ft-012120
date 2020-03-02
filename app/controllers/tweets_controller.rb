@@ -5,15 +5,21 @@ get '/tweets/new' do
 end 
 
 post '/tweets' do 
+    
     if !Helpers.params_empty?(params)
         new_tweet = Helpers.current_user(session).tweets.build(content: params[:content])
         new_tweet.save
         redirect "/tweets/#{new_tweet.id}"
     else
         @error = "Error: content was empty"
-        erb :'/tweets/new'
+        redirect '/tweets/new'
     end 
 
+end 
+
+get '/tweets/:id' do 
+    @tweet = Tweet.find_by_id(params[:id])
+    erb :'/tweets/show'
 end 
 
 get '/tweets' do 
