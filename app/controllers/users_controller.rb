@@ -38,22 +38,19 @@ class UsersController < ApplicationController
         redirect '/signup'
     end
     
-    end 
-
-
-
+  end 
   
   get '/logout' do
-    if Helpers.is_logged_in?
+    if Helpers.is_logged_in?(session)
       erb :'users/logout'
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 
   post '/logout' do
     session.clear
-    redirect '/login'
+    redirect '/'
   end
 
 
