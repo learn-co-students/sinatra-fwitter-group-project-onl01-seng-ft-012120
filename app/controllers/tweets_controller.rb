@@ -63,6 +63,13 @@ get '/tweets' do
   end
 end 
 
+  delete '/tweets/:id/delete' do
 
+    tweet = Tweet.find_by_id(params[:id])
+    if Helpers.current_user(session).id == tweet.user.id
+      tweet.destroy
+      redirect '/tweets'
+    end
+  end
 
 end
