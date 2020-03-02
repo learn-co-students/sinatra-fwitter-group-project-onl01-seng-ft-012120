@@ -1,1 +1,8 @@
 <h1>Welcome, user"</h1>
+
+
+<% Tweet.all.each do |tweet| %>
+  <div class="tweet">
+    <p><%= tweet.contet %></p>
+  </div>
+<% end %>
