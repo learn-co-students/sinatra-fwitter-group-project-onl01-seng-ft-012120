@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    if session[:id]
+    if Helpers.is_logged_in?(session) # To use the same validation thought the app
       redirect "/tweets"
     else
       erb :'users/signup'
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     if Helpers.is_logged_in?(session)
       erb :'users/logout'
     else
-      redirect '/'
+      redirect '/login'
     end
   end
 
