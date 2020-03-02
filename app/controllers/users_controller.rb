@@ -19,6 +19,26 @@ class UsersController < ApplicationController
     end
   end
 
+  get '/login' do 
+
+    erb :'users/login'
+  end 
+
+  post '/login' do 
+    if !Helpers.params_empty?(params)
+        user = User.find_by(username: params[:username])
+       if user  && User.authenticate(params[:password])
+            session[:id] = user.id
+            redirect "/tweets"
+       end 
+    else
+        redirect '/signup'
+    end
+    
+    end 
+
+
+
   
   
 end
