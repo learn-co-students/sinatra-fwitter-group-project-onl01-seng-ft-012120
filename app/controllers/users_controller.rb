@@ -19,6 +19,19 @@ class UsersController < ApplicationController
     end
   end
 
-  
+  get '/logout' do
+    if Helpers.is_logged_in?
+      erb :'users/logout'
+    else
+      redirect '/login'
+    end
+  end
+
+  post '/logout' do
+    session.clear
+    redirect '/login'
+  end
+
+
   
 end
