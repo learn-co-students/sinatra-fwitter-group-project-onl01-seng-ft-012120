@@ -28,34 +28,40 @@ class UsersController < ApplicationController
   end 
 
   post '/login' do 
-    if !Helpers.params_empty?(params)
-        user = User.find_by(username: params[:username])
-       if user  && user.authenticate(params[:password])
-            session[:id] = user.id
-            redirect "/tweets"
-       end 
-    else
-        redirect '/signup'
-    end
+    if !Helpers.is_logged_in?(session)
     
+        if !Helpers.params_empty?(params)
+            user = User.find_by(username: params[:username])
+        if user  && user.authenticate(params[:password])
+                session[:id] = user.id
+                redirect "/tweets"
+        end 
+        else
+            redirect '/signup'
+        end
+    else 
+        redirect '/logout'
+    end 
   end 
   
   get '/logout' do
-    if Helpers.is_logged_in?(session)
-      erb :'users/logout'
-    else
-      redirect '/login'
-    end
+    # if Helpers.is_logged_in?(session)
+    #   erb :'users/logout'
+    # else
+    #   redirect '/login'
+    # end
+    session.clear
+    redirect '/login'
   end
 
-  post '/logout' do
-    session.clear
-    redirect '/'
-  end
+#   post '/logout' do
+#     session.clear
+#     redirect '/login'
+#   end
 
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
-    erb :''
+    erb :'/users/show'
   end
 
 
