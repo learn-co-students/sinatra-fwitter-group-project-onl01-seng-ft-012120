@@ -58,7 +58,7 @@ describe ApplicationController do
     end
 
     it 'does not let a logged in user view the signup page' do
-      #user = User.create(:username => "skittles123", :email => "skittles@aol.com", :password => "rainbows")
+      user = User.create(:username => "skittles123", :email => "skittles@aol.com", :password => "rainbows")
       params = {
         :username => "skittles123",
         :email => "skittles@aol.com",
@@ -381,7 +381,6 @@ describe ApplicationController do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
         tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
         visit '/login'
-
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
